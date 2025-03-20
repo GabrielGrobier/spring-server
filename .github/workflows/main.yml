@@ -1,4 +1,4 @@
-name: server-spring
+name: server-spring1
 on:
   push:
     branches:
