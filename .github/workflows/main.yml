@@ -1,0 +1,30 @@
+name: server-spring
+on:
+  push:
+    branches:
+      - ramaprueba
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Add ssh key 
+        run: |
+          mkdir -p ~/.ssh/
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
+      - name: copy file to server
+        run: |
+          rsync -avz --delete -e "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" ./prueba-java-yaml ${{ secrets.USER_SERVER }}@${{ env.IP_PUBLICA }}:/home/ubuntu/
+
+      - name: SSH commands to deploy
+        run: |
+          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${{ secrets.USER_SERVER }}@${{ secrets.SERVER }} << 'EOF'
+          cd /home/ubuntu/prueba-java-yaml/
+          docker compose down
+          docker compose up -d --build
+          EOF
