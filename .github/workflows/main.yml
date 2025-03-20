@@ -2,7 +2,7 @@ name: server-spring
 on:
   push:
     branches:
-      - ramaprueba
+      - main
 jobs:
   deploy:
     runs-on: ubuntu-latest
