@@ -25,7 +25,6 @@ jobs:
       - name: SSH commands to deploy
         run: |
           ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${{ secrets.USER_SERVER }}@${{ secrets.SERVER }} << 'EOF'
-          cd /home/ubuntu/prueba-java-yaml/
           docker compose down
           docker compose up -d --build
           EOF
