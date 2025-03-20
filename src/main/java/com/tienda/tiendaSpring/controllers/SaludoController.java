@@ -9,7 +9,7 @@ public class SaludoController {
 
     @GetMapping("/saludo")
     public String saludo(){
-        return "Hola mundo desde Spring Boot";
+        return "Hola mundo desde Spring Boot con github actions ";
     }
 
     @GetMapping("/saludo/{nombre}")
