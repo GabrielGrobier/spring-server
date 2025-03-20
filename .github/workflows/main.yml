@@ -26,5 +26,5 @@ jobs:
           ssh -tt -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${{ secrets.USER_SERVER }}@${{ secrets.IP_PUBLICA }} << 'EOF'
           cd /home/ubuntu/proyecto
           docker compose down
-          docker compose up -d --build
+          docker compose up -d 
           EOF
