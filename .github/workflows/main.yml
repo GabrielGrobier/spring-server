@@ -23,7 +23,7 @@ jobs:
           rsync -avz --delete --exclude '.ssh/' -e "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" ./ ${{ secrets.USER_SERVER }}@${{ secrets.IP_PUBLICA }}:/home/ubuntu/proyecto
       - name: SSH commands to deploy
         run: |
-          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${{ secrets.USER_SERVER }}@${{ secrets.SERVER }} << 'EOF'
+          ssh -tt -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${{ secrets.USER_SERVER }}@${{ secrets.SERVER }} << 'EOF'
           cd /home/ubuntu/proyecto
           docker compose down
           docker compose up -d --build
