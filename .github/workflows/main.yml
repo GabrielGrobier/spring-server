@@ -17,6 +17,7 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
           chmod 600 ~/.ssh/known_hosts
+            
       - name: copy file to server
         run: |
           rsync -avz --delete -e "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" ./prueba-java-yaml ${{ secrets.USER_SERVER }}@${{ env.IP_PUBLICA }}:/home/ubuntu/
